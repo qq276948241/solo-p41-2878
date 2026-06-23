@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { Check, Star, ArrowRight } from 'lucide-vue-next';
 import type { PricingPlan, StudioStats } from '@/data/mock';
 
@@ -10,6 +11,12 @@ withDefaults(defineProps<Props>(), {
   stats: () => [],
   plans: () => [],
 });
+
+const router = useRouter();
+
+const goBooking = (planId: string) => {
+  router.push({ path: '/booking', query: { plan: planId } });
+};
 </script>
 
 <template>
@@ -74,14 +81,15 @@ withDefaults(defineProps<Props>(), {
             </li>
           </ul>
 
-          <RouterLink
-            to="/booking"
+          <button
+            type="button"
             class="w-full"
             :class="plan.featured ? 'btn-primary w-full' : 'btn-outline w-full'"
+            @click="goBooking(plan.id)"
           >
             预约此套餐
             <ArrowRight :size="16" />
-          </RouterLink>
+          </button>
         </div>
       </div>
     </div>

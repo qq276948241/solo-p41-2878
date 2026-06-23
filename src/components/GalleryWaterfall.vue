@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { ArrowRight } from 'lucide-vue-next';
 import type { FeaturedWork } from '@/data/mock';
 
@@ -8,11 +9,17 @@ interface Props {
   works: FeaturedWork[];
   showMoreLink?: string;
 }
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   title: '精选作品',
   subtitle: '用镜头讲述你的故事',
   showMoreLink: undefined,
 });
+
+const router = useRouter();
+
+const goTo = () => {
+  if (props.showMoreLink) router.push(props.showMoreLink);
+};
 </script>
 
 <template>
@@ -44,10 +51,10 @@ withDefaults(defineProps<Props>(), {
       </div>
 
       <div v-if="showMoreLink" class="text-center mt-10">
-        <RouterLink :to="showMoreLink" class="btn-outline">
+        <button type="button" class="btn-outline" @click="goTo">
           查看全部作品
           <ArrowRight :size="18" />
-        </RouterLink>
+        </button>
       </div>
     </div>
   </section>
