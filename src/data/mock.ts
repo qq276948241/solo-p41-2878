@@ -1,10 +1,13 @@
-export interface PortfolioItem {
+export interface FeaturedWork {
   id: number;
-  category: 'wedding' | 'portrait' | 'idphoto';
-  title: string;
   url: string;
-  thumb: string;
+  title: string;
   ratio: number;
+}
+
+export interface PortfolioItem extends FeaturedWork {
+  category: 'wedding' | 'portrait' | 'idphoto';
+  thumb: string;
 }
 
 export interface TimeSlot {
@@ -12,6 +15,21 @@ export interface TimeSlot {
   time: string;
   period: 'morning' | 'afternoon' | 'evening';
   booked: boolean;
+}
+
+export interface StudioStats {
+  num: string;
+  label: string;
+  desc: string;
+}
+
+export interface PricingPlan {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  features: string[];
+  featured?: boolean;
 }
 
 export const studioInfo = {
@@ -24,7 +42,7 @@ export const studioInfo = {
   wechat: 'guangheyan-studio',
 };
 
-export const featuredWorks: { id: number; url: string; title: string; ratio: number }[] = [
+export const featuredWorks: FeaturedWork[] = [
   {
     id: 1,
     title: '城市黄昏',
@@ -113,3 +131,34 @@ export const categoryTabs = [
   { key: 'portrait', label: '写真' },
   { key: 'idphoto', label: '证件照' },
 ] as const;
+
+export const studioStats: StudioStats[] = [
+  { num: '8+', label: '年专业经验', desc: '深耕人像摄影领域' },
+  { num: '3000+', label: '服务客户', desc: '收获无数好评与信任' },
+  { num: '100%', label: '满意承诺', desc: '拍到满意为止' },
+];
+
+export const pricingPlans: PricingPlan[] = [
+  {
+    id: 'portrait',
+    name: '轻写真',
+    description: '适合个人形象 / 闺蜜 / 情侣日常记录',
+    price: 688,
+    features: ['1 套服装造型', '拍摄 60 分钟', '精修 12 张', '全部底片赠送'],
+  },
+  {
+    id: 'idphoto',
+    name: '证件照精选',
+    description: '简历 / 签证 / 证件形象照',
+    price: 288,
+    featured: true,
+    features: ['2 套服装造型', '专业证件照拍摄', '精修 3 版（含电子版）', '当日取件'],
+  },
+  {
+    id: 'wedding',
+    name: '婚纱经典',
+    description: '婚纱外景 + 室内两场地拍摄套餐',
+    price: 3999,
+    features: ['4 套服装造型', '内景 + 外景各一套', '精修 60 张', '相册 + 摆台 2 组', '全部底片'],
+  },
+];

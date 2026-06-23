@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ArrowRight, MapPin, Phone, Sparkles } from 'lucide-vue-next';
-import { studioInfo, featuredWorks } from '@/data/mock';
+import GalleryWaterfall from '@/components/GalleryWaterfall.vue';
+import PricingSection from '@/components/PricingSection.vue';
+import { studioInfo, featuredWorks, studioStats, pricingPlans } from '@/data/mock';
 </script>
 
 <template>
@@ -75,58 +77,8 @@ import { studioInfo, featuredWorks } from '@/data/mock';
       </div>
     </section>
 
-    <section class="py-16 bg-white/50 border-y border-sand">
-      <div class="container">
-        <div class="text-center mb-12">
-          <div class="inline-block w-12 h-px bg-vintage mb-4"></div>
-          <h2 class="font-serif text-3xl md:text-4xl font-bold text-ink mb-3">精选作品</h2>
-          <p class="text-ink/60">用镜头讲述你的故事</p>
-        </div>
+    <GalleryWaterfall :works="featuredWorks" show-more-link="/portfolio" />
 
-        <div class="masonry">
-          <div
-            v-for="(w, i) in featuredWorks"
-            :key="w.id"
-            class="group relative overflow-hidden rounded-2xl shadow-sm border border-sand animate-fadeIn"
-            :style="{ animationDelay: `${i * 80}ms` }"
-          >
-            <img
-              :src="w.url"
-              :alt="w.title"
-              class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-              <span class="text-white font-medium text-lg font-serif">{{ w.title }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-10">
-          <RouterLink to="/portfolio" class="btn-outline">
-            查看全部作品
-            <ArrowRight :size="18" />
-          </RouterLink>
-        </div>
-      </div>
-    </section>
-
-    <section class="container py-16 md:py-24">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div
-          v-for="(item, idx) in [
-            { num: '8+', label: '年专业经验', desc: '深耕人像摄影领域' },
-            { num: '3000+', label: '服务客户', desc: '收获无数好评与信任' },
-            { num: '100%', label: '满意承诺', desc: '拍到满意为止' },
-          ]"
-          :key="idx"
-          class="card p-8 text-center hover:shadow-md transition-shadow duration-300"
-        >
-          <div class="font-serif text-5xl font-bold text-vintage mb-2">{{ item.num }}</div>
-          <div class="font-serif text-xl text-ink mb-1">{{ item.label }}</div>
-          <div class="text-ink/50 text-sm">{{ item.desc }}</div>
-        </div>
-      </div>
-    </section>
+    <PricingSection :stats="studioStats" :plans="pricingPlans" />
   </div>
 </template>
